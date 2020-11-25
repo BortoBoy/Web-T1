@@ -26,7 +26,7 @@ GRANT ALL PRIVILEGES ON ConsultasMedicasDB.* TO 'dsw'@'localhost';
 
 FLUSH PRIVILEGES;
 ```
-
+oada durante a instalação:
 4. Saia do my MySQL e logue com o novo usuário 'mysql -u dsw -p'
 
 5. Execute os seguintes comandos no sql:
