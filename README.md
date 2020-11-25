@@ -1,6 +1,14 @@
-Requisitos
+# About
 
-Antes de mais nada faça as seguintes ações:
+Trabalho 1 da disciplina de WEB ministrada pelo professor Delano, durante o período 2020/1 - BLOCO B do ENPE, implementado pelos alunos:
+
+  - Gabriel Bortolote Pitarelli - 726514
+  - Jean Araujo - 620394
+  - Jhonattan Vieira Dos Santos - 563234
+
+## Configurações iniciais
+
+Antes de mais nada faça as seguintes passos:
 
 1. Baixe e execute o tomcat em uma janela do seu terminal como mostrado nas aulas pelo professor.
 
