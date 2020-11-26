@@ -22,7 +22,7 @@ public abstract class BaseUser {
     }
 
     public void setEmail(String email) throws Exception {
-        if(email.length() > 20){
+        if(email.length() > 256){
             throw new Exception("Email deve ter no máximo 256 caracteres");
         }
         this.email = email;

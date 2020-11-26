@@ -57,12 +57,12 @@ public class PacienteDAO extends BaseDAO {
         return listaPacientes;
     }
     
-    public void delete(Paciente paciente) {
+    public void delete(String cpf) {
         String sql = "DELETE FROM Paciente where cpf = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, paciente.getCpf());
+            statement.setString(1, cpf);
             statement.executeUpdate();
             statement.close();
             conn.close();

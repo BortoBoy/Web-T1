@@ -14,7 +14,7 @@ abstract public class BaseDAO {
     }
 
     protected Connection getConnection() throws SQLException {
-    	String url = "jdbc:mysql://localhost:3306/Login";
+    	String url = "jdbc:mysql://localhost:3306/ConsultasMedicasDB";
     	return DriverManager.getConnection(url, "dsw", "dsw123");
     }
 }

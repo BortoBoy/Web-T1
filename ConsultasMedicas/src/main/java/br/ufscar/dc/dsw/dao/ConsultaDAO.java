@@ -53,12 +53,12 @@ public class ConsultaDAO extends BaseDAO {
         return listaConsultas;
     }
     
-    public void delete(Consulta consulta) {
+    public void delete(Long id) {
         String sql = "DELETE FROM Consulta where id = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setLong(1, consulta.getId());
+            statement.setLong(1, id);
             statement.executeUpdate();
             statement.close();
             conn.close();

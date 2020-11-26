@@ -64,5 +64,16 @@ public class Paciente extends BaseUser{
         this.aniversario = aniversario;
     }
 
-	
+    @Override
+    public String toString() {
+        return "Paciente <\n"
+        + "\temail: "+this.email+"\n"
+        + "\tsenha: "+this.senha+"\n"
+        + "\tnome: "+this.nome+"\n"
+        + "\tcpf: "+this.cpf+"\n"
+        + "\ttelefone: "+this.telefone+"\n"
+        + "\tsexo: "+this.sexo+"\n"
+        + "\taniversario: "+this.aniversario+"\n"
+        + ">";
+    }
 }

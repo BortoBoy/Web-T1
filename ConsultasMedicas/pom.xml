@@ -58,6 +58,23 @@
           <path>/${project.artifactId}</path>
         </configuration>
       </plugin>
+      <plugin>  
+        <groupId>org.codehaus.mojo</groupId>  
+        <artifactId>exec-maven-plugin</artifactId>  
+        <version>3.0.0</version>  
+        <executions>  
+            <execution>  
+                <phase>test</phase>  
+                <goals>  
+                    <goal>java</goal>  
+                </goals>  
+                <configuration>  
+                    <mainClass>br.ufscar.dc.dsw.dao.TestDAO</mainClass>
+                    <cleanupDaemonThreads>false</cleanupDaemonThreads>
+                </configuration>  
+            </execution>  
+        </executions>  
+       </plugin>  
     </plugins>
     <finalName>ConsultasMedicas</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

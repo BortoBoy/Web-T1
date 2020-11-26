@@ -55,12 +55,12 @@ public class MedicoDAO extends BaseDAO {
         return listaMedicos;
     }
     
-    public void delete(Medico medico) {
+    public void delete(String crm) {
         String sql = "DELETE FROM Medico where crm = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, medico.getCrm());
+            statement.setString(1, crm);
             statement.executeUpdate();
             statement.close();
             conn.close();
