@@ -1,6 +1,6 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Paciente extends BaseUser{
     public enum Sexos{
@@ -11,11 +11,7 @@ public class Paciente extends BaseUser{
     private Sexos sexo;
     private String telefone;
     private Date aniversario;
-
-    public Paciente(String cpf) {
-            this.cpf = cpf;
-    }
-
+    
     public String getCpf() {
         return cpf;
     }
@@ -30,7 +26,11 @@ public class Paciente extends BaseUser{
         this.cpf = cpf;
     }
 
-    public String getSexo() {
+    public int getSexo() {
+        return sexo.ordinal();
+    }
+    
+    public String getSexoStr() {
         return sexo.name();
     }
 

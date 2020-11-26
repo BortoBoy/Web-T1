@@ -7,7 +7,7 @@ public class Medico extends BaseUser {
     
     private String crm;
     private Especialidades especialidade;
-
+    
     public String getCrm() {
         return crm;
     }
@@ -23,8 +23,12 @@ public class Medico extends BaseUser {
         this.crm = crm;
     }
 
-    public Especialidades getEspecialidade() {
-        return especialidade;
+    public int getEspecialidade() {
+        return especialidade.ordinal();
+    }
+    
+    public String getEsepcialidadeStr(){
+        return especialidade.name();
     }
 
     public void setEspecialidade(int especialidade) throws Exception {

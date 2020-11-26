@@ -2,9 +2,9 @@ package br.ufscar.dc.dsw.domain;
 
 public abstract class BaseUser {
     
-    private String nome;
-    private String email;
-    private String senha;
+    protected String nome;
+    protected String email;
+    protected String senha;
     
     public String getNome() {
         return nome;
