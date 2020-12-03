@@ -1,7 +1,7 @@
 package br.ufscar.dc.dsw.domain;
 
 public class Medico extends BaseUser {
-    public enum Especialidades{
+    public static enum Especialidades{
         CARDIO, PNEUMO, PEDIATRA, CIRURGIAO, DERMATO
     }
     

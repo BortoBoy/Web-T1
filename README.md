@@ -10,7 +10,7 @@ Trabalho 1 da disciplina de WEB ministrada pelo professor Delano, durante o per�
 
 Antes de mais nada faça as seguintes passos:
 
-1. Baixe e execute o tomcat em uma janela do seu terminal como mostrado nas aulas pelo professor. 
+1. Baixe e execute o tomcat em uma janela do seu terminal como mostrado nas aulas pelo professor.
 https://github.com/delanobeder/DSW1/blob/master/software.md
 
 2. Instale o MySql na sua máquina, para Debian/Ubuntu use este link como referência:
@@ -36,7 +36,7 @@ oada durante a instalação:
 
 use ConsultasMedicasDB;
 
-create table Paciente(email varchar(256), senha varchar(48), cpf varchar(20) not null unique, nome varchar(256) not null, telefone varchar(20), sexo int, aniversario date, primary key (cpf));
+create table Paciente(email varchar(256), senha varchar(48), cpf varchar(20) not null unique, nome varchar(256) not null, telefone varchar(20), sexo int, dia int, mes int, ano int, primary key (cpf));
 
 create table Medico(email varchar(256), senha varchar(48), crm varchar(48) not null unique, nome varchar(256), especialidade int, primary key (crm));
 

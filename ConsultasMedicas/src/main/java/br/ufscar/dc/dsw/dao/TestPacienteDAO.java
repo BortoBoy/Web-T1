@@ -26,7 +26,7 @@ public class TestPacienteDAO {
     public static void pacienteUpdate() throws Exception{
         PacienteDAO pacienteDAO = new PacienteDAO();
         Paciente paciente = pacienteGenerator();
-        pacienteDAO.update(paciente);
+        pacienteDAO.update(paciente, "123123");
         System.out.println("[INFO] Paciente atualizado com sucesso");
     }
     
@@ -54,7 +54,7 @@ public class TestPacienteDAO {
         paciente.setNome("Frederico testeiro da Silva");
         paciente.setTelefone("+5518996076736");
         paciente.setSexo(0);
-        paciente.setAniversario(new Date(1998, 6, 4));
+        paciente.setAniversario(0, 0, 0);
         return paciente;
     }
 }

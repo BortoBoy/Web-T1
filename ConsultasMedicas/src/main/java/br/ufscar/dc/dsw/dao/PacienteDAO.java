@@ -12,7 +12,7 @@ public class PacienteDAO extends BaseDAO {
 
     public void insert(Paciente paciente) {    
         String sql = "insert into Paciente(email, senha, cpf, nome, telefone, "
-        + "sexo, aniversario) values (?,?,?,?,?,?,?);";
+        + "sexo, dia, mes, ano) values (?,?,?,?,?,?,?,?,?);";
         
         try {
             Connection conn = this.getConnection();
@@ -24,7 +24,9 @@ public class PacienteDAO extends BaseDAO {
             statement.setString(4, paciente.getNome());
             statement.setString(5, paciente.getTelefone());
             statement.setInt(6, paciente.getSexo());
-            statement.setDate(7, paciente.getAniversario());
+            statement.setInt(7, paciente.getDia());
+            statement.setInt(8, paciente.getMes());
+            statement.setInt(9, paciente.getAno());
             statement.executeUpdate();
             statement.close();
             conn.close();
@@ -69,10 +71,10 @@ public class PacienteDAO extends BaseDAO {
         }
     }
     
-    public void update(Paciente paciente) {
+    public void update(Paciente paciente, String cpf) {
         String sql = "UPDATE Paciente SET email = ?, senha = ? , nome = ?, "
-        + "cpf = ?, aniversario = ?, sexo = ?, telefone = ? WHERE cpf = ?";
-    
+        + "cpf = ?, dia = ?, mes = ?, ano = ?, sexo = ?, telefone = ? WHERE cpf = ?";
+
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -80,10 +82,13 @@ public class PacienteDAO extends BaseDAO {
             statement.setString(2, paciente.getSenha());
             statement.setString(3, paciente.getNome());
             statement.setString(4, paciente.getCpf());
-            statement.setDate(5, paciente.getAniversario());
-            statement.setInt(6, paciente.getSexo());
-            statement.setString(7, paciente.getTelefone());
-            statement.setString(8, paciente.getCpf());
+            statement.setInt(5, paciente.getDia());
+            statement.setInt(6, paciente.getMes());
+            statement.setInt(7, paciente.getAno());
+            statement.setInt(8, paciente.getSexo());
+            statement.setString(9, paciente.getTelefone());
+            statement.setString(10, cpf);
+            System.out.println(statement);
             statement.executeUpdate();
             statement.close();
             conn.close();
@@ -112,7 +117,8 @@ public class PacienteDAO extends BaseDAO {
         return paciente;
     }
 
-    private Paciente convertPacienteRowIntoPacienteObj(ResultSet resultSet) throws SQLException, Exception {
+    private Paciente convertPacienteRowIntoPacienteObj(ResultSet resultSet)
+    throws SQLException, Exception {
         Paciente paciente = new Paciente();
         paciente.setEmail(resultSet.getString("email"));
         paciente.setSenha(resultSet.getString("senha"));
@@ -120,7 +126,9 @@ public class PacienteDAO extends BaseDAO {
         paciente.setNome(resultSet.getString("nome"));
         paciente.setTelefone(resultSet.getString("telefone"));
         paciente.setSexo(resultSet.getInt("sexo"));
-        paciente.setAniversario(resultSet.getDate("aniversario"));
+        paciente.setAniversario(resultSet.getInt("dia"),
+        resultSet.getInt("mes"),
+        resultSet.getInt("ano"));
         
         return paciente;
     }

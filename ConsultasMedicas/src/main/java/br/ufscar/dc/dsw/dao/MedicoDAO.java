@@ -68,7 +68,7 @@ public class MedicoDAO extends BaseDAO {
         }
     }
     
-    public void update(Medico medico) {
+    public void update(Medico medico, String crm) {
         String sql = "UPDATE Medico SET email = ?, senha = ? , nome = ?, "
         + "crm = ?, especialidade = ? WHERE crm = ?";
     
@@ -80,7 +80,7 @@ public class MedicoDAO extends BaseDAO {
             statement.setString(3, medico.getNome());
             statement.setString(4, medico.getCrm());
             statement.setInt(5, medico.getEspecialidade());
-            statement.setString(6, medico.getCrm());
+            statement.setString(6, crm);
             statement.executeUpdate();
             statement.close();
             conn.close();
@@ -89,7 +89,7 @@ public class MedicoDAO extends BaseDAO {
         }
     }
     
-    public Medico getbyCpf(String crm) throws Exception {
+    public Medico getbyCrm(String crm) throws Exception {
         Medico medico = null;
         String sql = "SELECT * from Medico WHERE crm = ?";
         try {

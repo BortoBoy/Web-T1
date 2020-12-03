@@ -6,8 +6,6 @@ import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Paciente;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,44 +34,42 @@ public class LoginController extends HttpServlet {
         // verifica se é admin
         if("admin".equals(user) && "admin".equals(password)){
             request.getSession().setAttribute("admin", true);
-            RequestDispatcher rd = request.getRequestDispatcher("/admin.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("admin.jsp");
         }
-        
-        // verifica se é médico
-        MedicoDAO medicoDAO = new MedicoDAO();
-        try {
-            ArrayList<Medico> medicos = medicoDAO.getAll();
-            for (Medico medico : medicos) {
-                if(medico.getEmail().equals(user) && medico.getSenha().equals(password)){
-                    request.getSession().setAttribute("medico", medico);
-                    RequestDispatcher rd = request.getRequestDispatcher("/medico.jsp");
-                    rd.forward(request, response);
+        else{
+            // verifica se é médico
+            MedicoDAO medicoDAO = new MedicoDAO();
+            try {
+                ArrayList<Medico> medicos = medicoDAO.getAll();
+                for (Medico medico : medicos) {
+                    if(medico.getEmail().equals(user) && medico.getSenha().equals(password)){
+                        request.getSession().setAttribute("medico", medico);
+                        response.sendRedirect("medico.jsp");
+                    }
+                    else{
+                        // verifica se é apciente
+                        PacienteDAO pacienteDAO = new PacienteDAO();
+                        try {
+                            ArrayList<Paciente> pacientes = pacienteDAO.getAll();
+                            for (Paciente paciente : pacientes) {
+                                if(paciente.getEmail().equals(user) && paciente.getSenha().equals(password)){
+                                    request.getSession().setAttribute("paciente", paciente);
+                                    response.sendRedirect("paciente.jsp");
+                                }
+                                else{
+                                    response.sendRedirect("login");
+                                }
+                            }
+                        } catch (Exception ex) {
+                            request.setAttribute("erro", ex.toString());
+                            response.sendRedirect("error.jsp");
+                        }
+                    }
                 }
+            } catch (Exception ex) {
+                request.setAttribute("erro", ex.toString());
+                response.sendRedirect("error.jsp");
             }
-        } catch (Exception ex) {
-            request.setAttribute("erro", ex.toString());
-            request.getRequestDispatcher("/erro.jsp").forward(request, response);
         }
-        
-        // verifica se é médico
-        PacienteDAO pacienteDAO = new PacienteDAO();
-        try {
-            ArrayList<Paciente> pacientes = pacienteDAO.getAll();
-            for (Paciente paciente : pacientes) {
-                if(paciente.getEmail().equals(user) && paciente.getSenha().equals(password)){
-                    request.getSession().setAttribute("paciente", paciente);
-                    RequestDispatcher rd = request.getRequestDispatcher("/paciente.jsp");
-                    rd.forward(request, response);
-                }
-            }
-        } catch (Exception ex) {
-            request.setAttribute("erro", ex.toString());
-            request.getRequestDispatcher("/erro.jsp").forward(request, response);
-        }
-       
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-        rd.forward(request, response);
     }
 }

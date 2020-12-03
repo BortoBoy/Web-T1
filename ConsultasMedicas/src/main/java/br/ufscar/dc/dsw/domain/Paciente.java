@@ -1,16 +1,16 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.sql.Date;
-
 public class Paciente extends BaseUser{
-    public enum Sexos{
+    public static enum Sexos{
         MASCULINO, FEMININO, OUTRO
     }
     
     private String cpf;
     private Sexos sexo;
     private String telefone;
-    private Date aniversario;
+    private int dia;
+    private int mes;
+    private int ano;
     
     public String getCpf() {
         return cpf;
@@ -56,14 +56,28 @@ public class Paciente extends BaseUser{
         this.telefone = telefone;
     }
 
-    public Date getAniversario() {
-        return aniversario;
+    public String getAniversario() {
+        return this.dia+"/"+this.mes+"/"+this.ano;
     }
 
-    public void setAniversario(Date aniversario) {
-        this.aniversario = aniversario;
+    public void setAniversario(int dia, int mes, int ano) {
+        this.dia = dia;
+        this.mes = mes;
+        this.ano = ano;
     }
 
+    public int getDia() {
+        return dia;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+    
     @Override
     public String toString() {
         return "Paciente <\n"
@@ -73,7 +87,7 @@ public class Paciente extends BaseUser{
         + "\tcpf: "+this.cpf+"\n"
         + "\ttelefone: "+this.telefone+"\n"
         + "\tsexo: "+this.sexo+"\n"
-        + "\taniversario: "+this.aniversario+"\n"
+        + "\taniversario: "+this.getAniversario()+"\n"
         + ">";
     }
 }

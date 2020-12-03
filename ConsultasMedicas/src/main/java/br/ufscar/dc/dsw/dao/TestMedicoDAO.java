@@ -1,7 +1,6 @@
 package br.ufscar.dc.dsw.dao;
 
 import br.ufscar.dc.dsw.domain.Medico;
-import java.sql.Date;
 import java.util.List;
 
 public class TestMedicoDAO {
@@ -12,7 +11,7 @@ public class TestMedicoDAO {
         // medicoDeletion();
         // medicoGetOne();
         // medicoGetAll();
-        medicoUpdate();
+        // medicoUpdate();
         
     }
     
@@ -32,13 +31,13 @@ public class TestMedicoDAO {
     public static void medicoUpdate() throws Exception{
         MedicoDAO medicoDAO = new MedicoDAO();
         Medico medico = medicoGenerator();
-        medicoDAO.update(medico);
+        medicoDAO.update(medico, "123123");
         System.out.println("[INFO] Medico atualizado com sucesso");
     }
     
     public static void medicoGetOne() throws Exception{
         MedicoDAO medicoDAO = new MedicoDAO();
-        Medico medico = medicoDAO.getbyCpf("142342/BA");
+        Medico medico = medicoDAO.getbyCrm("142342/BA");
         System.out.println("[INFO] Medico requisitado com sucesso");
         System.out.println(medico.toString());
     }
