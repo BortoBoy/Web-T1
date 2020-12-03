@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import br.ufscar.dc.dsw.domain.Paciente;
 
 public class PacienteDAO extends BaseDAO {
@@ -34,8 +33,8 @@ public class PacienteDAO extends BaseDAO {
         }
     }
     
-    public List<Paciente> getAll() throws Exception {   
-        List<Paciente> listaPacientes = new ArrayList<>();
+    public ArrayList<Paciente> getAll() throws Exception {   
+        ArrayList<Paciente> listaPacientes = new ArrayList<>();
         String sql = "SELECT * from Paciente p";
         try {
             Connection conn = this.getConnection();

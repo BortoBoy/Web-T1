@@ -32,8 +32,8 @@ public class MedicoDAO extends BaseDAO {
         }
     }
     
-    public List<Medico> getAll() throws Exception {   
-        List<Medico> listaMedicos = new ArrayList<>();
+    public ArrayList<Medico> getAll() throws Exception {   
+        ArrayList<Medico> listaMedicos = new ArrayList<>();
         String sql = "SELECT * from Medico m";
         try {
             Connection conn = this.getConnection();
