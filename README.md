@@ -10,12 +10,13 @@ Trabalho 1 da disciplina de WEB ministrada pelo professor Delano, durante o per�
 
 Antes de mais nada faça as seguintes passos:
 
-1. Baixe e execute o tomcat em uma janela do seu terminal como mostrado nas aulas pelo professor.
+1. Baixe e execute o tomcat em uma janela do seu terminal como mostrado nas aulas pelo professor. 
+https://github.com/delanobeder/DSW1/blob/master/software.md
 
 2. Instale o MySql na sua máquina, para Debian/Ubuntu use este link como referência:
 https://www.digitalocean.com/community/tutorials/como-instalar-o-mysql-no-ubuntu-18-04-pt
 
-3. Executar os seguintes comandos dentro do MySQL como admin, para logar como admin você pdoe utilizar 'sudo mysql -u root -p' e inserir a senha colcoada durante a instalação:
+3. Executar os seguintes comandos dentro do MySQL como admin, para logar como admin você pdoe utilizar 'sudo mysql -u root -p' e inserir a senha colocada durante a instalação:
 
 ```sql
 CREATE USER 'dsw'@'localhost' IDENTIFIED BY 'dsw123';
@@ -55,5 +56,5 @@ insert into Paciente(email, senha, cpf, nome, telefone, sexo, aniversario) value
 
 ```
 
-6. Agora que seu banco de dados esta configurado e populado. Para acessar o sistema como administrador use email: "admin" e senha "admin"
-sem as aspas
+6. Agora seu banco de dados esta configurado e populado. Para acessar o sistema como administrador use email: "admin" e senha "admin"
+sem as aspas.
