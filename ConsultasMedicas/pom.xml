@@ -69,7 +69,7 @@
                     <goal>java</goal>  
                 </goals>  
                 <configuration>  
-                    <mainClass>br.ufscar.dc.dsw.dao.TestDAO</mainClass>
+                    <mainClass>br.ufscar.dc.dsw.dao.TestConsultaDAO</mainClass>
                     <cleanupDaemonThreads>false</cleanupDaemonThreads>
                 </configuration>  
             </execution>  

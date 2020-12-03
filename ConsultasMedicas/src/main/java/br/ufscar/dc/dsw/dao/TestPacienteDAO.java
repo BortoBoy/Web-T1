@@ -2,12 +2,12 @@ package br.ufscar.dc.dsw.dao;
 
 import br.ufscar.dc.dsw.domain.Paciente;
 import java.sql.Date;
+import java.util.List;
 
-public class TestDAO {
+public class TestPacienteDAO {
 
     public static void main(String[] args) throws Exception {
         // Execute aqui suas ações de teste
-        pacienteUpdate();
     }
     
     public static void pacienteInsertion() throws Exception{
@@ -30,6 +30,22 @@ public class TestDAO {
         System.out.println("[INFO] Paciente atualizado com sucesso");
     }
     
+    public static void pacienteGetOne() throws Exception{
+        PacienteDAO pacienteDAO = new PacienteDAO();
+        Paciente paciente = pacienteDAO.getbyCpf("123.123.123-12");
+        System.out.println("[INFO] Paciente requisitado com sucesso");
+        System.out.println(paciente.toString());
+    }
+    
+    public static void pacienteGetAll() throws Exception{
+        PacienteDAO pacienteDAO = new PacienteDAO();
+        List<Paciente> pacientes = pacienteDAO.getAll();
+        System.out.println("[INFO] Pacientes requisitados com sucesso");
+        for (Paciente paciente : pacientes) {
+            System.out.println(paciente.toString());
+        }
+    }
+    
     private static Paciente pacienteGenerator() throws Exception{
         Paciente paciente = new Paciente();
         paciente.setEmail("email_teste_editado@gmail.com");
@@ -41,6 +57,4 @@ public class TestDAO {
         paciente.setAniversario(new Date(1998, 6, 4));
         return paciente;
     }
-    
-    //TODO restante dos testes
 }

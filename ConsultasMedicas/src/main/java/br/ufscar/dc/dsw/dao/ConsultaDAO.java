@@ -11,9 +11,56 @@ import br.ufscar.dc.dsw.domain.Consulta;
 
 public class ConsultaDAO extends BaseDAO {
 
-    public void insert(Consulta consulta) {    
-        String sql = "insert into Medico(cpf_paciente, crm_medico, hora)"
-        + " values(?, ?, ?)";
+    public void insert(Consulta consulta) throws Exception {    
+        // verifica se já não existe uma consulta nesse horario para esse medico
+        // ou esse paciente
+        String sql = "select * from Consulta where ano=? and mes=? and dia=? and "
+        + "hora=? and minuto=? and cpf_paciente = ?";
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, consulta.getAno());
+            statement.setInt(2, consulta.getMes());
+            statement.setInt(3, consulta.getDia());
+            statement.setInt(4, consulta.getHora());
+            statement.setInt(5, consulta.getMinuto());
+            statement.setString(6, consulta.getCpf_paciente());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                throw new Exception("Esse paciente já tem uma consulta nesse horário");
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
+        sql = "select * from Consulta where ano=? and mes=? and dia=? and hora=?"
+        + " and minuto=? and crm_medico=?";
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, consulta.getAno());
+            statement.setInt(2, consulta.getMes());
+            statement.setInt(3, consulta.getDia());
+            statement.setInt(4, consulta.getHora());
+            statement.setInt(5, consulta.getMinuto());
+            statement.setString(6, consulta.getCrm_medico());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                throw new Exception("Esse medico já tem uma consulta nesse horário");
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
+        
+        sql = "insert into Consulta(cpf_paciente, crm_medico, dia, mes,"
+        + " ano, hora, minuto) values(?, ?, ?, ?, ?, ?, ?)";
         
         try {
             Connection conn = this.getConnection();
@@ -21,7 +68,11 @@ public class ConsultaDAO extends BaseDAO {
             statement = conn.prepareStatement(sql);
             statement.setString(1, consulta.getCpf_paciente());
             statement.setString(2, consulta.getCrm_medico());
-            statement.setDate(3, consulta.getHora());
+            statement.setInt(3, consulta.getDia());
+            statement.setInt(4, consulta.getMes());
+            statement.setInt(5, consulta.getAno());
+            statement.setInt(6, consulta.getHora());
+            statement.setInt(7, consulta.getMinuto());
             statement.executeUpdate();
             statement.close();
             conn.close();
@@ -37,9 +88,6 @@ public class ConsultaDAO extends BaseDAO {
             Connection conn = this.getConnection();
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
-            // para cada consulta retornada pelo banco de dados crie um objeto
-            // consulta usando os setters (pois esses contém as vaidações
-            // necessárias)
             while (resultSet.next()) {
                 Consulta consulta = convertConsultaRowIntoConsultaObj(resultSet);
                 listaConsultas.add(consulta);
@@ -66,25 +114,6 @@ public class ConsultaDAO extends BaseDAO {
         }
     }
     
-    public void update(Consulta consulta) {
-        String sql = "UPDATE Consulta SET cpf_paciente = ?, crm_medico = ? , "
-        + "hora = ? WHERE id = ?";
-    
-        try {
-            Connection conn = this.getConnection();
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, consulta.getCpf_paciente());
-            statement.setString(2, consulta.getCrm_medico());
-            statement.setDate(3, consulta.getHora());
-            statement.setLong(4, consulta.getId());
-            statement.executeUpdate();
-            statement.close();
-            conn.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
     public Consulta getbyId(Long id) throws Exception {
         Consulta consulta = null;
         String sql = "SELECT * from Consulta WHERE id = ?";
@@ -104,6 +133,48 @@ public class ConsultaDAO extends BaseDAO {
         }
         return consulta;
     }
+    
+    public ArrayList<Consulta> getbyPatient(String cpf) throws Exception {
+        String sql = "SELECT * from Consulta WHERE cpf_paciente = ?";
+        ArrayList<Consulta> listaConsultas = new ArrayList<>();
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, cpf);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Consulta consulta = convertConsultaRowIntoConsultaObj(resultSet);
+                listaConsultas.add(consulta);
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaConsultas;
+    }
+    
+    public ArrayList<Consulta> getbymedico(String crm) throws Exception {
+        String sql = "SELECT * from Consulta WHERE crm_medico = ?";
+        ArrayList<Consulta> listaConsultas = new ArrayList<>();
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, crm);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Consulta consulta = convertConsultaRowIntoConsultaObj(resultSet);
+                listaConsultas.add(consulta);
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaConsultas;
+    }
 
     private Consulta convertConsultaRowIntoConsultaObj(ResultSet resultSet) 
     throws SQLException, Exception {
@@ -111,7 +182,12 @@ public class ConsultaDAO extends BaseDAO {
         consulta.setCpf_paciente(resultSet.getString("cpf_paciente"));
         consulta.setCrm_medico(resultSet.getString("crm_medico"));
         consulta.setId(resultSet.getLong("id"));
-        consulta.setHora(resultSet.getDate("hora"));
+        int ano = resultSet.getInt("ano");
+        int mes = resultSet.getInt("mes");
+        int dia = resultSet.getInt("dia");
+        int hora = resultSet.getInt("hora");
+        int minuto = resultSet.getInt("minuto");
+        consulta.setData(ano, mes, dia, hora, minuto);
         return consulta;
     }
 }

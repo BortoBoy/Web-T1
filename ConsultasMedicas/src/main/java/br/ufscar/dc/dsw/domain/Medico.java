@@ -2,7 +2,7 @@ package br.ufscar.dc.dsw.domain;
 
 public class Medico extends BaseUser {
     public enum Especialidades{
-        MASCULINO, FEMININO, OUTRO
+        CARDIO, PNEUMO, PEDIATRA, CIRURGIAO, DERMATO
     }
     
     private String crm;
@@ -40,5 +40,16 @@ public class Medico extends BaseUser {
             throw new Exception(error_message);
         }
         this.especialidade = Especialidades.values()[especialidade];
+    }
+    
+    @Override
+    public String toString() {
+        return "Medico <\n"
+        + "\temail: "+this.email+"\n"
+        + "\tsenha: "+this.senha+"\n"
+        + "\tnome: "+this.nome+"\n"
+        + "\tcrm: "+this.crm+"\n"
+        + "\tespecialidade: "+this.especialidade+"\n"
+        + ">";
     }
 }
