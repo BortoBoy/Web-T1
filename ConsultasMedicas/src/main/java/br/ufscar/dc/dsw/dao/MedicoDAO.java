@@ -55,6 +55,27 @@ public class MedicoDAO extends BaseDAO {
         return listaMedicos;
     }
     
+    public ArrayList<Medico> getByEspecialidade(int especialidade) throws Exception {   
+        ArrayList<Medico> listaMedicos = new ArrayList<>();
+        String sql = "SELECT * from Medico WHERE especialidade = ?";
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, especialidade);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                Medico medico = convertMedicoRowIntoMedicoObj(resultSet);
+                listaMedicos.add(medico);
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaMedicos;
+    }
+    
     public void delete(String crm) {
         String sql = "DELETE FROM Medico where crm = ?";
         try {

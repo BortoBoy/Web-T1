@@ -5,18 +5,20 @@
 --%>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="br.ufscar.dc.dsw.domain.Paciente"%>
-<%@page import="br.ufscar.dc.dsw.dao.PacienteDAO"%>
 <%@page import="br.ufscar.dc.dsw.domain.Medico"%>
 <%@page import="br.ufscar.dc.dsw.dao.MedicoDAO"%>
 <%
-    if(request.getSession().getAttribute("admin") == null){
-        request.getRequestDispatcher("/login").forward(request, response);
-    }
     MedicoDAO medicoDAO = new MedicoDAO();
-    ArrayList<Medico> medicos = medicoDAO.getAll();
-    PacienteDAO pacienteDAO = new PacienteDAO();
-    ArrayList<Paciente> pacientes = pacienteDAO.getAll();
+    ArrayList<Medico> medicos = null;
+    String especialidadeStr = request.getParameter("e");
+    int especialidade = -1;
+    if(especialidadeStr != null){
+        especialidade = Integer.parseInt(especialidadeStr);
+        medicos = medicoDAO.getByEspecialidade(especialidade);
+    }
+    else{
+        medicos = medicoDAO.getAll();
+    }
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,13 +27,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin Page</title>
+        <title>Index Page</title>
     </head>
     <body>
-        <h1>Admin page</h1>
+        <h1>Agendamento de consultas médicas</h1>
+        <a href="login.jsp">Fazer Login</a><br><br>
         
-        <h3>Crud de Médicos</h3>
-        <a href="medico/create">Adicionar</a>
+        <% for (Medico.Especialidades e : Medico.Especialidades.values()) { %>
+            <a href="?e=<%= e.ordinal() %>"
+                <% if(especialidade == e.ordinal()){%>
+                  style="font-weight: bold;"
+                <%}%>
+            >
+                <%= e.name() %>
+            </a><br>
+        <%}%>
+        <h3>Médicos cadastrados
+            <% if(especialidade != -1){%>
+                (<%= Medico.Especialidades.values()[especialidade].name() %>)
+            <%}%>
+        </h3>
         <table border="1">
             <thead>
                 <tr>
@@ -52,29 +67,5 @@
                 <%}%>
             </tbody>
         </table>
-            
-        <h3>Crud de Pacientes</h3>
-        <a href="paciente/create">Adicionar</a>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>CPF</th>
-                    <th>Nome</th>
-                    <th>Sexo</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (Paciente paciente : pacientes) { %>
-                    <tr>
-                        <td><%= paciente.getCpf()%></td>
-                        <td><%= paciente.getNome()%></td>
-                        <td><%= paciente.getSexoStr()%></td>
-                        <td><%= paciente.getEmail()%></td>
-                    </tr>
-                <%}%>
-            </tbody>
-        </table>
-
     </body>
 </html>
