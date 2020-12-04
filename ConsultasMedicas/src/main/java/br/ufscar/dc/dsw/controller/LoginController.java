@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
             String password = request.getParameter("password");
 
             // verifica se é admin
-            if("admin".equals(user) && "admin".equals(password)){
+            if("admin".equals(user) && "admin123".equals(password)){
                 request.getSession().setAttribute("admin", true);
                 response.sendRedirect("admin.jsp");
                 return;

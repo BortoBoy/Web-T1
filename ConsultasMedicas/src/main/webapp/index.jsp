@@ -4,6 +4,8 @@
     Author     : borto
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.ufscar.dc.dsw.domain.Medico"%>
 <%@page import="br.ufscar.dc.dsw.dao.MedicoDAO"%>
@@ -21,17 +23,17 @@
     }
 %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+<fmt:bundle basename="messages">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Index Page</title>
     </head>
     <body>
-        <h1>Agendamento de consultas médicas</h1>
-        <a href="login.jsp">Fazer Login</a><br><br>
+        <h1><fmt:message key="system_description"/></h1>
+        <a href="login.jsp"><fmt:message key="link_to_login"/></a><br><br>
         
         <% for (Medico.Especialidades e : Medico.Especialidades.values()) { %>
             <a href="?e=<%= e.ordinal() %>"
@@ -39,20 +41,20 @@
                   style="font-weight: bold;"
                 <%}%>
             >
-                <%= e.name() %>
+                <fmt:message key="<%= e.name() %>"/>
             </a><br>
         <%}%>
-        <h3>Médicos cadastrados
+        <h3><fmt:message key="registred_doctors"/>
             <% if(especialidade != -1){%>
-                (<%= Medico.Especialidades.values()[especialidade].name() %>)
+                (<fmt:message key="<%= Medico.Especialidades.values()[especialidade].name() %>"/>)
             <%}%>
         </h3>
         <table border="1">
             <thead>
                 <tr>
                     <th>CRM</th>
-                    <th>Nome</th>
-                    <th>Especialidade</th>
+                    <th><fmt:message key="field_name" /></th>
+                    <th><fmt:message key="field_especialidade" /></th>
                     <th>Email</th>
                 </tr>
             </thead>
@@ -61,7 +63,7 @@
                     <tr>
                         <td><%= medico.getCrm() %></td>
                         <td><%= medico.getNome()%></td>
-                        <td><%= medico.getEsepcialidadeStr()%></td>
+                        <td><fmt:message key="<%= medico.getEsepcialidadeStr()%>"/></td>
                         <td><%= medico.getEmail()%></td>
                     </tr>
                 <%}%>
@@ -69,3 +71,4 @@
         </table>
     </body>
 </html>
+</fmt:bundle>

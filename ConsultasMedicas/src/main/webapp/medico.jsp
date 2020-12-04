@@ -9,6 +9,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.ufscar.dc.dsw.domain.Medico"%>
 <%@page import="br.ufscar.dc.dsw.dao.ConsultaDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%  
     Medico medico = (Medico) request.getSession().getAttribute("medico");
     if(medico == null){
@@ -22,23 +23,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+<fmt:bundle basename="messages">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Medico Page</title>
     </head>
     <body>
-        <h1>Medico page</h1>
-        <p>Bem vindo <%= medico.getNome() %></p>
+        <h1><fmt:message key="welcome"/> <%= medico.getNome() %></h1>
         
-        <h3>Suas Consultas</h3>
+        <h3><fmt:message key="your_appointments"/></h3>
         <table border="1">
             <thead>
                 <tr>
-                    <th>Paciente</th>
-                    <th>Sexo</th>
+                    <th><fmt:message key="field_patient"/></th>
+                    <th><fmt:message key="field_sex"/></th>
                     <th>CPF</th>
-                    <th>Data e Hora</th>
+                    <th><fmt:message key="field_date_time"/></th>
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +47,7 @@
                     <tr>
                         <td><%= consulta.getNome_paciente() %></td>
                         <td>
-        <%= Paciente.Sexos.values()[consulta.getSexo_paciente()].name() %>
+                            <fmt:message key="<%= Paciente.Sexos.values()[consulta.getSexo_paciente()].name() %>"/>
                         </td>
                         <td><%= consulta.getCpf_paciente() %></td>
                         <td><%= consulta.getData()%></td>
@@ -56,3 +57,5 @@
         </table>
     </body>
 </html>
+
+</fmt:bundle>

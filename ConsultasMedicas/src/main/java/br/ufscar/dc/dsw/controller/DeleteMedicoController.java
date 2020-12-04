@@ -2,8 +2,6 @@ package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.MedicoDAO;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

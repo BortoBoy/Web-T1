@@ -4,6 +4,7 @@
     Author     : borto
 --%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="br.ufscar.dc.dsw.domain.Paciente"%>
 <%@page import="br.ufscar.dc.dsw.dao.PacienteDAO"%>
 <%@page import="br.ufscar.dc.dsw.domain.Medico"%>
@@ -23,24 +24,25 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+<fmt:bundle basename="messages">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Page</title>
     </head>
     <body>
-        <h1>Admin page</h1>
+        <h1><fmt:message key="welcome"/> Admin</h1>
         
-        <h3>Crud de Médicos</h3>
-        <a href="newMedico.jsp">Adicionar</a>
+        <h3><fmt:message key="doctors_crud"/></h3>
+        <a href="newMedico.jsp"><fmt:message key="add"/></a>
         <table border="1">
             <thead>
                 <tr>
                     <th>CRM</th>
-                    <th>Nome</th>
-                    <th>Especialidade</th>
+                    <th><fmt:message key="field_name"/></th>
+                    <th><fmt:message key="field_especialidade"/></th>
                     <th>Email</th>
-                    <th>Ações</th>
+                    <th><fmt:message key="actions"/></th>
                 </tr>
             </thead>
             <tbody>
@@ -48,27 +50,27 @@
                     <tr>
                         <td><%= medico.getCrm() %></td>
                         <td><%= medico.getNome()%></td>
-                        <td><%= medico.getEsepcialidadeStr()%></td>
+                        <td><fmt:message key="<%= medico.getEsepcialidadeStr()%>"/></td>
                         <td><%= medico.getEmail()%></td>
                         <td>
-                            <a href="editMedico.jsp?crm=<%= medico.getCrm() %>">Editar</a>
-                            <a href="medico/delete?crm=<%= medico.getCrm() %>">Deletar</a>
+                            <a href="editMedico.jsp?crm=<%= medico.getCrm() %>"><fmt:message key="action_edit" /></a>
+                            <a href="medico/delete?crm=<%= medico.getCrm() %>"><fmt:message key="action_delete" /></a>
                         </td>
                     </tr>
                 <%}%>
             </tbody>
         </table>
             
-        <h3>Crud de Pacientes</h3>
-        <a href="newPaciente.jsp">Adicionar</a>
+        <h3><fmt:message key="patients_crud" /></h3>
+        <a href="newPaciente.jsp"><fmt:message key="add" /></a>
         <table border="1">
             <thead>
                 <tr>
                     <th>CPF</th>
                     <th>Nome</th>
-                    <th>Sexo</th>
+                    <th><fmt:message key="field_sex" /></th>
                     <th>Email</th>
-                    <th>Ações</th>
+                    <th><fmt:message key="actions" /></th>
                 </tr>
             </thead>
             <tbody>
@@ -76,11 +78,11 @@
                     <tr>
                         <td><%= paciente.getCpf()%></td>
                         <td><%= paciente.getNome()%></td>
-                        <td><%= paciente.getSexoStr()%></td>
+                        <td><fmt:message key="<%= paciente.getSexoStr()%>" /></td>
                         <td><%= paciente.getEmail()%></td>
                         <td>
-                            <a href="editPaciente.jsp?cpf=<%= paciente.getCpf()%>">Editar</a>
-                            <a href="paciente/delete?cpf=<%= paciente.getCpf()%>">Deletar</a>
+                            <a href="editPaciente.jsp?cpf=<%= paciente.getCpf()%>"><fmt:message key="action_edit" /></a>
+                            <a href="paciente/delete?cpf=<%= paciente.getCpf()%>"><fmt:message key="action_delete" /></a>
                         </td>
                     </tr>
                 <%}%>
@@ -89,3 +91,4 @@
 
     </body>
 </html>
+</fmt:bundle>
