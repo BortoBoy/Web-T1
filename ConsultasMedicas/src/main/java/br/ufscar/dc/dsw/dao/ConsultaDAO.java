@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import br.ufscar.dc.dsw.domain.Consulta;
 import java.time.LocalDateTime;
-import java.time.Month;
 
 public class ConsultaDAO extends BaseDAO {
 
