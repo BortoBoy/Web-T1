@@ -3,14 +3,50 @@ package br.ufscar.dc.dsw.domain;
 import java.time.LocalDateTime;
 
 public class Consulta {
-    String crm_medico;
-    String cpf_paciente;
-    int ano;
-    int mes;
-    int dia;
-    int hora;
-    int minuto;
-    long id;
+    private String crm_medico;
+    private String cpf_paciente;
+    private int ano;
+    private int mes;
+    private int dia;
+    private int hora;
+    private int minuto;
+    private long id;
+    private String nome_medico;
+    private int especialidade_medico;
+    private String nome_paciente;
+    private int sexo_paciente;
+
+    public String getNome_paciente() {
+        return nome_paciente;
+    }
+
+    public void setNome_paciente(String nome_paciente) {
+        this.nome_paciente = nome_paciente;
+    }
+
+    public int getSexo_paciente() {
+        return sexo_paciente;
+    }
+
+    public void setSexo_paciente(int sexo_paciente) {
+        this.sexo_paciente = sexo_paciente;
+    }
+
+    public void setNome_medico(String nome_medico) {
+        this.nome_medico = nome_medico;
+    }
+
+    public void setEspecialidade_medico(int especialidade_medico) {
+        this.especialidade_medico = especialidade_medico;
+    }
+
+    public String getNome_medico() {
+        return nome_medico;
+    }
+
+    public int getEspecialidade_medico() {
+        return especialidade_medico;
+    }
 
     public long getId() {
         return id;
@@ -39,7 +75,8 @@ public class Consulta {
     }
 
     public String getData() {
-        return this.dia+"/"+this.mes+"/"+this.ano+" - "+this.hora+":"+this.minuto;
+        return String.format("%02d/%02d/%04d - %02d:%02d", 
+        this.dia, this.mes, this.ano, this.hora, this.minuto);
     }
 
     public void setNewData(int ano, int mes, int dia, int hora, int minuto)

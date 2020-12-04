@@ -3,6 +3,8 @@ package br.ufscar.dc.dsw.controller;
 import br.ufscar.dc.dsw.dao.MedicoDAO;
 import br.ufscar.dc.dsw.domain.Medico;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,8 +35,7 @@ public class CreateMedicoController extends HttpServlet {
             response.sendRedirect("/ConsultasMedicas/admin.jsp");
             
         } catch (Exception ex) {
-            request.getSession().setAttribute("error", ex);
-            response.sendRedirect("/ConsultasMedicas/erro.jsp");
+            throw new RuntimeException(ex);
         }
         
     }

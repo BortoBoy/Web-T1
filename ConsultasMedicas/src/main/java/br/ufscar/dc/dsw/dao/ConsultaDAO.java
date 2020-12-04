@@ -8,11 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import br.ufscar.dc.dsw.domain.Consulta;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 public class ConsultaDAO extends BaseDAO {
 
     public void insert(Consulta consulta) throws Exception {    
-        // verifica se já não existe uma consulta nesse horario para esse medico
+        // verifica se já não existe uma consulta nesse horario para esse paciente
         // ou esse paciente
         String sql = "select * from Consulta where ano=? and mes=? and dia=? and "
         + "hora=? and minuto=? and cpf_paciente = ?";
@@ -36,6 +38,8 @@ public class ConsultaDAO extends BaseDAO {
             throw new RuntimeException(e);
         }
         
+        // verifica se já não existe uma consulta nesse horario para esse medico
+        // ou esse paciente
         sql = "select * from Consulta where ano=? and mes=? and dia=? and hora=?"
         + " and minuto=? and crm_medico=?";
         try {
@@ -58,6 +62,12 @@ public class ConsultaDAO extends BaseDAO {
             throw new RuntimeException(e);
         }
         
+        //verifica se data é maior que a data atual
+        LocalDateTime current = LocalDateTime.now();
+        if(current.isAfter(LocalDateTime.of(consulta.getAno(), consulta.getMes(),
+        consulta.getDia(), consulta.getHora(), consulta.getMinuto()))){
+            throw new RuntimeException("Data para nova consulta deve ser maior que a data atual");
+        }
         
         sql = "insert into Consulta(cpf_paciente, crm_medico, dia, mes,"
         + " ano, hora, minuto) values(?, ?, ?, ?, ?, ?, ?)";
@@ -135,7 +145,9 @@ public class ConsultaDAO extends BaseDAO {
     }
     
     public ArrayList<Consulta> getbyPatient(String cpf) throws Exception {
-        String sql = "SELECT * from Consulta WHERE cpf_paciente = ?";
+        String sql = "select c.*, m.* from Consulta c join Medico m on m.crm = "
+        + "c.crm_medico where c.cpf_paciente = ? order by ano desc, mes desc, "
+        + "dia desc, hora desc, minuto desc";
         ArrayList<Consulta> listaConsultas = new ArrayList<>();
         try {
             Connection conn = this.getConnection();
@@ -144,6 +156,8 @@ public class ConsultaDAO extends BaseDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Consulta consulta = convertConsultaRowIntoConsultaObj(resultSet);
+                consulta.setEspecialidade_medico(resultSet.getInt("especialidade"));
+                consulta.setNome_medico(resultSet.getString("nome"));
                 listaConsultas.add(consulta);
             }
             resultSet.close();
@@ -155,8 +169,10 @@ public class ConsultaDAO extends BaseDAO {
         return listaConsultas;
     }
     
-    public ArrayList<Consulta> getbymedico(String crm) throws Exception {
-        String sql = "SELECT * from Consulta WHERE crm_medico = ?";
+    public ArrayList<Consulta> getbyMedico(String crm) throws Exception {
+        String sql = "select c.*, p.* from Consulta c join Paciente p on p.cpf = "
+        + "c.cpf_paciente where c.crm_medico = ? order by c.ano desc, c.mes desc, "
+        + "c.dia desc, c.hora desc, c.minuto desc";
         ArrayList<Consulta> listaConsultas = new ArrayList<>();
         try {
             Connection conn = this.getConnection();
@@ -165,6 +181,8 @@ public class ConsultaDAO extends BaseDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Consulta consulta = convertConsultaRowIntoConsultaObj(resultSet);
+                consulta.setSexo_paciente(resultSet.getInt("sexo"));
+                consulta.setNome_paciente(resultSet.getString("nome"));
                 listaConsultas.add(consulta);
             }
             resultSet.close();

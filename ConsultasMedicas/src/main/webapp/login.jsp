@@ -13,8 +13,9 @@
     </head>
     <body>
         <form action="login" method="post">
-            <label>Usuário</label><input type="text" name="user" maxlength="200"><br>
-            <label>Senha</label><input type="password" name="password" maxlength="200"><br>
+            <label>Usuário</label><input type="text" name="user" maxlength="256"><br>
+            <label>Senha</label><input type="password" name="password" 
+            minlength="6" maxlength="48"><br>
             <input type="submit" value="Enviar">
         </form>
     </body>

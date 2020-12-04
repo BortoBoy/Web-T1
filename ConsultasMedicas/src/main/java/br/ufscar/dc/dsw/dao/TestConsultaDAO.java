@@ -56,7 +56,7 @@ public class TestConsultaDAO {
     
     public static void consultaGetAllByMedico() throws Exception{
         ConsultaDAO consultaDAO = new ConsultaDAO();
-        List<Consulta> consultas = consultaDAO.getbymedico("123123");
+        List<Consulta> consultas = consultaDAO.getbyMedico("123123");
         System.out.println("[INFO] Consultas requisitados com sucesso");
         for (Consulta consulta : consultas) {
             System.out.println(consulta.toString());
