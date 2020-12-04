@@ -3,8 +3,6 @@ package br.ufscar.dc.dsw.controller;
 import br.ufscar.dc.dsw.dao.ConsultaDAO;
 import br.ufscar.dc.dsw.domain.Consulta;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +24,8 @@ public class CreateConsultaController extends HttpServlet {
             }
             ConsultaDAO consultaDAO = new ConsultaDAO();
             Consulta consulta = new Consulta();
-            consulta.setCpf_paciente(request.getParameter("paciente"));
-            consulta.setCrm_medico(request.getParameter("medico"));
+            consulta.setPaciente(Long.parseLong(request.getParameter("paciente")));
+            consulta.setMedico(Long.parseLong(request.getParameter("medico")));
             consulta.setData(
                     Integer.parseInt(request.getParameter("ano")),
                     Integer.parseInt(request.getParameter("mes")),

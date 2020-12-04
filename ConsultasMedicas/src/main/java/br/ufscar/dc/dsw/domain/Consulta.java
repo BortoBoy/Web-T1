@@ -3,18 +3,36 @@ package br.ufscar.dc.dsw.domain;
 import java.time.LocalDateTime;
 
 public class Consulta {
-    private String crm_medico;
-    private String cpf_paciente;
+    private long medico;
+    private long paciente;
     private int ano;
     private int mes;
     private int dia;
     private int hora;
     private int minuto;
     private long id;
+    private String cpf;
+    private String crm;
     private String nome_medico;
     private int especialidade_medico;
     private String nome_paciente;
     private int sexo_paciente;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCrm() {
+        return crm;
+    }
+
+    public void setCrm(String crm) {
+        this.crm = crm;
+    }
 
     public String getNome_paciente() {
         return nome_paciente;
@@ -56,23 +74,22 @@ public class Consulta {
         this.id = id;
     }
 
-    public String getCrm_medico() {
-        return crm_medico;
+    public long getMedico() {
+        return medico;
     }
 
-    public void setCrm_medico(String crm_medico) throws Exception {
-        Medico.validateCrm(crm_medico);
-        this.crm_medico = crm_medico;
+    public void setMedico(long medico) {
+        this.medico = medico;
     }
 
-    public String getCpf_paciente() {
-        return cpf_paciente;
+    public long getPaciente() {
+        return paciente;
     }
 
-    public void setCpf_paciente(String cpf_paciente) throws Exception {
-        Paciente.validateCpf(cpf_paciente);
-        this.cpf_paciente = cpf_paciente;
+    public void setPaciente(long paciente) {
+        this.paciente = paciente;
     }
+
 
     public String getData() {
         return String.format("%02d/%02d/%04d - %02d:%02d", 
@@ -127,8 +144,8 @@ public class Consulta {
     public String toString() {
         return "Consulta <\n"
         + "\tid: "+this.id+"\n"
-        + "\tpaciente: "+this.cpf_paciente+"\n"
-        + "\tmedico: "+this.crm_medico+"\n"
+        + "\tpaciente: "+this.paciente+"\n"
+        + "\tmedico: "+this.medico+"\n"
         + "\tdata: "+this.getData()+"\n"
         + ">";
     }

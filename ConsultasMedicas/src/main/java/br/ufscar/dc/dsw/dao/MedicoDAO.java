@@ -76,12 +76,12 @@ public class MedicoDAO extends BaseDAO {
         return listaMedicos;
     }
     
-    public void delete(String crm) {
-        String sql = "DELETE FROM Medico where crm = ?";
+    public void delete(Long id) {
+        String sql = "DELETE FROM Medico where id = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, crm);
+            statement.setLong(1, id);
             statement.executeUpdate();
             statement.close();
             conn.close();
@@ -89,9 +89,9 @@ public class MedicoDAO extends BaseDAO {
         }
     }
     
-    public void update(Medico medico, String crm) {
+    public void update(Medico medico) {
         String sql = "UPDATE Medico SET email = ?, senha = ? , nome = ?, "
-        + "crm = ?, especialidade = ? WHERE crm = ?";
+        + "crm = ?, especialidade = ? WHERE id = ?";
     
         try {
             Connection conn = this.getConnection();
@@ -101,7 +101,7 @@ public class MedicoDAO extends BaseDAO {
             statement.setString(3, medico.getNome());
             statement.setString(4, medico.getCrm());
             statement.setInt(5, medico.getEspecialidade());
-            statement.setString(6, crm);
+            statement.setLong(6, medico.getId());
             statement.executeUpdate();
             statement.close();
             conn.close();
@@ -110,13 +110,13 @@ public class MedicoDAO extends BaseDAO {
         }
     }
     
-    public Medico getbyCrm(String crm) throws Exception {
+    public Medico getOne(long id) throws Exception {
         Medico medico = null;
-        String sql = "SELECT * from Medico WHERE crm = ?";
+        String sql = "SELECT * from Medico WHERE id = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, crm);
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 medico = convertMedicoRowIntoMedicoObj(resultSet);
@@ -132,6 +132,7 @@ public class MedicoDAO extends BaseDAO {
 
     private Medico convertMedicoRowIntoMedicoObj(ResultSet resultSet) throws SQLException, Exception {
         Medico medico = new Medico();
+        medico.setId(resultSet.getLong("id"));
         medico.setEmail(resultSet.getString("email"));
         medico.setSenha(resultSet.getString("senha"));
         medico.setNome(resultSet.getString("nome"));

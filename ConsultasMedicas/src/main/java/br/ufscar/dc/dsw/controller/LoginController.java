@@ -6,23 +6,22 @@ import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Paciente;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "Index", urlPatterns = { "/login" })
+@WebServlet(name = "Login", urlPatterns = { "/login" })
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
         // renderiza página de login
-        RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-        rd.forward(request, response);
+        response.sendRedirect("login.jsp");
     }    
         
     @Override
@@ -65,5 +64,7 @@ public class LoginController extends HttpServlet {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+        
+        response.sendRedirect("login.jsp");
     }
 }

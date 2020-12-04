@@ -21,7 +21,7 @@
     }
     ConsultaDAO consultaDAO = new ConsultaDAO();
     MedicoDAO medicoDAO = new MedicoDAO();
-    ArrayList<Consulta> consultas = consultaDAO.getbyPatient(paciente.getCpf());
+    ArrayList<Consulta> consultas = consultaDAO.getbyPatient(paciente.getId());
     ArrayList<Medico> medicos = medicoDAO.getAll();
 %>
 
@@ -35,6 +35,7 @@
     </head>
     <body>
         <h1><fmt:message key="welcome"/> <%= paciente.getNome() %></h1>
+        <a href="logout">Log out</a>
         
         <h3><fmt:message key="your_appointments"/></h3>
         <table border="1">
@@ -53,7 +54,7 @@
                         <td>
                             <fmt:message key="<%= Medico.Especialidades.values()[consulta.getEspecialidade_medico()].name() %>"/>
                         </td>
-                        <td><%= consulta.getCrm_medico() %></td>
+                        <td><%= consulta.getCrm() %></td>
                         <td><%= consulta.getData()%></td>
                     </tr>
                 <% } %>
@@ -62,12 +63,12 @@
             
         <h3><fmt:message key="set_appointment"/></h3>
         <form action="consulta/create" method="post">
-            <input type="hidden" value="<%= paciente.getCpf() %>" name="paciente" />
+            <input type="hidden" value="<%= paciente.getId() %>" name="paciente" />
             <label><fmt:message key="field_medico"/>:</label>
             <select name="medico">
                 <% for (Medico m : medicos) { %>
                 <option
-                    value="<%= m.getCrm() %>">
+                    value="<%= m.getId() %>">
                     <%= m.getNome() %>
                     -
                     <fmt:message key="<%= m.getEsepcialidadeStr() %>"/>

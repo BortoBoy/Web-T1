@@ -58,12 +58,12 @@ public class PacienteDAO extends BaseDAO {
         return listaPacientes;
     }
     
-    public void delete(String cpf) {
-        String sql = "DELETE FROM Paciente where cpf = ?";
+    public void delete(long id) {
+        String sql = "DELETE FROM Paciente where id = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, cpf);
+            statement.setLong(1, id);
             statement.executeUpdate();
             statement.close();
             conn.close();
@@ -71,9 +71,9 @@ public class PacienteDAO extends BaseDAO {
         }
     }
     
-    public void update(Paciente paciente, String cpf) {
+    public void update(Paciente paciente) {
         String sql = "UPDATE Paciente SET email = ?, senha = ? , nome = ?, "
-        + "cpf = ?, dia = ?, mes = ?, ano = ?, sexo = ?, telefone = ? WHERE cpf = ?";
+        + "cpf = ?, dia = ?, mes = ?, ano = ?, sexo = ?, telefone = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -87,7 +87,7 @@ public class PacienteDAO extends BaseDAO {
             statement.setInt(7, paciente.getAno());
             statement.setInt(8, paciente.getSexo());
             statement.setString(9, paciente.getTelefone());
-            statement.setString(10, cpf);
+            statement.setLong(10, paciente.getId());
             System.out.println(statement);
             statement.executeUpdate();
             statement.close();
@@ -97,13 +97,13 @@ public class PacienteDAO extends BaseDAO {
         }
     }
     
-    public Paciente getbyCpf(String cpf) throws Exception {
+    public Paciente getOne(long id) throws Exception {
         Paciente paciente = null;
-        String sql = "SELECT * from Paciente WHERE cpf = ?";
+        String sql = "SELECT * from Paciente WHERE id = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, cpf);
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 paciente = convertPacienteRowIntoPacienteObj(resultSet);
@@ -120,6 +120,7 @@ public class PacienteDAO extends BaseDAO {
     private Paciente convertPacienteRowIntoPacienteObj(ResultSet resultSet)
     throws SQLException, Exception {
         Paciente paciente = new Paciente();
+        paciente.setId(resultSet.getLong("id"));
         paciente.setEmail(resultSet.getString("email"));
         paciente.setSenha(resultSet.getString("senha"));
         paciente.setCpf(resultSet.getString("cpf"));

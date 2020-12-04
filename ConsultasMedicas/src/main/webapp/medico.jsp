@@ -17,7 +17,7 @@
         return;
     }
     ConsultaDAO consultaDAO = new ConsultaDAO();
-    ArrayList<Consulta> consultas = consultaDAO.getbyMedico(medico.getCrm());
+    ArrayList<Consulta> consultas = consultaDAO.getbyMedico(medico.getId());
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -31,6 +31,7 @@
     </head>
     <body>
         <h1><fmt:message key="welcome"/> <%= medico.getNome() %></h1>
+        <a href="logout">Log out</a>
         
         <h3><fmt:message key="your_appointments"/></h3>
         <table border="1">
@@ -49,7 +50,7 @@
                         <td>
                             <fmt:message key="<%= Paciente.Sexos.values()[consulta.getSexo_paciente()].name() %>"/>
                         </td>
-                        <td><%= consulta.getCpf_paciente() %></td>
+                        <td><%= consulta.getCpf() %></td>
                         <td><%= consulta.getData()%></td>
                     </tr>
                 <% } %>

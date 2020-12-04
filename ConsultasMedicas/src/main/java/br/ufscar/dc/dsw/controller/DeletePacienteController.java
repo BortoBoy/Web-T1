@@ -24,8 +24,8 @@ public class DeletePacienteController extends HttpServlet {
         }
         PacienteDAO pacienteDAO = new PacienteDAO();
         try {
-            String cpf = request.getParameter("cpf");
-            pacienteDAO.delete(cpf);
+            long id = Long.parseLong(request.getParameter("id"));
+            pacienteDAO.delete(id);
             response.sendRedirect("/ConsultasMedicas/admin.jsp");
             
         } catch (IOException ex) {

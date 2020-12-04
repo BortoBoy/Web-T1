@@ -22,8 +22,8 @@ public class DeleteMedicoController extends HttpServlet {
         }
         MedicoDAO medicoDAO = new MedicoDAO();
         try {
-            String crm = request.getParameter("crm");
-            medicoDAO.delete(crm);
+            long id = Long.parseLong(request.getParameter("id"));
+            medicoDAO.delete(id);
             response.sendRedirect("/ConsultasMedicas/admin.jsp");
             
         } catch (IOException ex) {

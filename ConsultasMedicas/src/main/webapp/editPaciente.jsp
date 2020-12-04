@@ -15,7 +15,7 @@
         return;
     }
     PacienteDAO pacienteDAO = new PacienteDAO();
-    Paciente paciente = pacienteDAO.getbyCpf(request.getParameter("cpf"));
+    Paciente paciente = pacienteDAO.getOne(Long.parseLong(request.getParameter("id")));
 %>
 
 <fmt:bundle basename="messages">
@@ -35,8 +35,8 @@
             <label><fmt:message key="field_password"/></label>
             <input name="senha" value="<%= paciente.getSenha()%>" type="password" maxlength="48"/><br>
             <label>CPF</label>
-            <input name="new_cpf" value="<%= paciente.getCpf()%>" type="text" maxlength="48"/><br>
-            <input name="old_cpf" value="<%= paciente.getCpf()%>" type="hidden" maxlength="48"/>
+            <input name="cpf" value="<%= paciente.getCpf()%>" type="text" maxlength="48"/><br>
+            <input name="id" value="<%= paciente.getId()%>" type="hidden" maxlength="48"/>
             <label><fmt:message key="field_tel"/></label>
             <input name="telefone" value="<%= paciente.getTelefone()%>" type="text" maxlength="20"/><br>
             <label><fmt:message key="field_birth"/></label><br>

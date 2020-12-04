@@ -26,14 +26,14 @@ public class UpdateMedicoController extends HttpServlet {
         MedicoDAO medicoDAO = new MedicoDAO();
         Medico medico = new Medico();
         try {
-            String crm = request.getParameter("old_crm");
+            medico.setId(Long.parseLong(request.getParameter("id")));
             medico.setNome(request.getParameter("nome"));
             medico.setEmail(request.getParameter("email"));
             medico.setSenha(request.getParameter("senha"));
-            medico.setCrm(request.getParameter("new_crm"));
+            medico.setCrm(request.getParameter("crm"));
 
             medico.setEspecialidade(Integer.parseInt(request.getParameter("especialidade")));
-            medicoDAO.update(medico, crm);
+            medicoDAO.update(medico);
             response.sendRedirect("/ConsultasMedicas/admin.jsp");
             
         } catch (Exception ex) {

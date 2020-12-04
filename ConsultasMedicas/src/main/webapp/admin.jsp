@@ -32,6 +32,7 @@
     </head>
     <body>
         <h1><fmt:message key="welcome"/> Admin</h1>
+        <a href="logout">Log out</a>
         
         <h3><fmt:message key="doctors_crud"/></h3>
         <a href="newMedico.jsp"><fmt:message key="add"/></a>
@@ -53,8 +54,8 @@
                         <td><fmt:message key="<%= medico.getEsepcialidadeStr()%>"/></td>
                         <td><%= medico.getEmail()%></td>
                         <td>
-                            <a href="editMedico.jsp?crm=<%= medico.getCrm() %>"><fmt:message key="action_edit" /></a>
-                            <a href="medico/delete?crm=<%= medico.getCrm() %>"><fmt:message key="action_delete" /></a>
+                            <a href="editMedico.jsp?id=<%= medico.getId() %>"><fmt:message key="action_edit" /></a>
+                            <a href="medico/delete?id=<%= medico.getId() %>"><fmt:message key="action_delete" /></a>
                         </td>
                     </tr>
                 <%}%>
@@ -81,8 +82,8 @@
                         <td><fmt:message key="<%= paciente.getSexoStr()%>" /></td>
                         <td><%= paciente.getEmail()%></td>
                         <td>
-                            <a href="editPaciente.jsp?cpf=<%= paciente.getCpf()%>"><fmt:message key="action_edit" /></a>
-                            <a href="paciente/delete?cpf=<%= paciente.getCpf()%>"><fmt:message key="action_delete" /></a>
+                            <a href="editPaciente.jsp?id=<%= paciente.getId()%>"><fmt:message key="action_edit" /></a>
+                            <a href="paciente/delete?id=<%= paciente.getId()%>"><fmt:message key="action_delete" /></a>
                         </td>
                     </tr>
                 <%}%>

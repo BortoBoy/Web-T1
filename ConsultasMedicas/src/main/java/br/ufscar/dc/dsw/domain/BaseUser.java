@@ -5,6 +5,15 @@ public abstract class BaseUser {
     protected String nome;
     protected String email;
     protected String senha;
+    protected long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     
     public String getNome() {
         return nome;

@@ -16,7 +16,7 @@
         return;
     }
     MedicoDAO medicoDAO = new MedicoDAO();
-    Medico medico = medicoDAO.getbyCrm(request.getParameter("crm"));
+    Medico medico = medicoDAO.getOne(Long.parseLong(request.getParameter("id")));
 %>
 
 <!DOCTYPE html>
@@ -36,8 +36,8 @@
             <label><fmt:message key="field_password"/></label>
             <input name="senha" value="<%= medico.getSenha()%>" type="password" maxlength="48"/><br>
             <label>CRM</label>
-            <input name="new_crm" value="<%= medico.getCrm() %>" type="text" maxlength="48"/><br>
-            <input name="old_crm" value="<%= medico.getCrm() %>" type="hidden" maxlength="48"/>
+            <input name="crm" value="<%= medico.getCrm() %>" type="text" maxlength="48"/><br>
+            <input name="id" value="<%= medico.getId() %>" type="hidden" maxlength="48"/>
             <label><fmt:message key="field_especialidade"/>:</label>
             <select name="especialidade" id="cars">
                 <% for (Medico.Especialidades e : Medico.Especialidades.values()) { %>
