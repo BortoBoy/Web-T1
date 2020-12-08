@@ -16,7 +16,7 @@ https://github.com/delanobeder/DSW1/blob/master/software.md
 2. Instale o MySql na sua máquina, para Debian/Ubuntu use este link como referência:
 https://www.digitalocean.com/community/tutorials/como-instalar-o-mysql-no-ubuntu-18-04-pt
 
-3. Executar os seguintes comandos dentro do MySQL como admin, para logar como admin você pdoe utilizar 'sudo mysql -u root -p' e inserir a senha colocada durante a instalação:
+3. Executar os seguintes comandos dentro do MySQL como admin. Para logar como admin você pode utilizar 'sudo mysql -u root -p' e inserir a senha colocada durante a instalação:
 
 ```sql
 CREATE USER 'dsw'@'localhost' IDENTIFIED BY 'dsw123';
@@ -27,8 +27,8 @@ GRANT ALL PRIVILEGES ON ConsultasMedicasDB.* TO 'dsw'@'localhost';
 
 FLUSH PRIVILEGES;
 ```
-oada durante a instalação:
-4. Saia do my MySQL e logue com o novo usuário 'mysql -u dsw -p'
+
+4. Saia do my MySQL e logue com o novo usuário 'mysql -u dsw -p' e insira senha 'dsw123'
 
 5. Execute os seguintes comandos no sql:
 
@@ -56,5 +56,70 @@ insert into Paciente(email, senha, cpf, nome, telefone, sexo, dia, mes, ano) val
 
 ```
 
-6. Agora seu banco de dados esta configurado e populado. Para acessar o sistema como administrador use email: "admin" e senha "admin"
-sem as aspas.
+6. Agora seu banco de dados esta configurado e populado. faça o deploy do projeto usando o comando:
+
+```
+mvn compile
+mvn tomcat7:deploy
+```
+
+7. Use o manager do TomCat para encontrar o app 'ConsultasMedicas'
+
+## Passos para testar todos os requisitos
+
+1. Na página principal, 'index.jsp', observe que existe uma lista de médicos e que ela pode ser filtrada por especialdiade clicando nos links com nomes de especialdiade listados.
+
+2. Logue como admin usando usuário 'admin' e senha 'admin123'.
+
+3. Verifique que fomos redirecionados apra a página 'admin.jsp', clque em logout e tente acessar essa página novamente editando somente a URL sem fazer login, perceba que não é possível pois o login deve ter sido feito.
+
+4. Faça novamente o login como admin e veja as listagem de médicos e pacientes.
+
+5. Adicione um paciente e verifique que ele aparece na listagem.
+
+6. Edite um paciente e veja que as informações mudam na listagem.
+
+7. Exclua um paciente e veja que ele desaparece da listagem, não exclua o paciente de email paciente1@email.com.
+
+8. Faça os últimos 3 passos com o CRUD de médicos para verificar a funcionaldiade do CRUD de médicos.
+
+9. Faça logout e logue come paciente usando 'paciente1@email.com' e senha 'paciente1', verifique que você foi redirecionado para a página paciente.jsp, se quiser verifique que é preciso estar logado comedico1@email.commo paciente para acessar essa página.
+
+10. Observe que não há nenhuma consula listada, então marque uma com o médico 'Fabrício Inácio da Silva' em qualquer horário permitido e observe que ela aparece na listagem
+
+11. Tente marcar uma consulta no mesmo horário e veja a mensagem de erro.
+
+12. Faça logout e logue com a conta do médico 'Fabrício Inácio da Silva', isso é, usuário 'medico1@email.com' e senha 'medico1'.
+
+13. Veja que a consulta foi marcada na listagem deste.
+
+14. Faça logout, logue com outro paciente que não seja o 'paciente1@email.com' e tente marcar uma consulta com o mesmo médico e horário da consulta criada anteriormente para ver o error que aparece.
+
+Dica: mantenha o mysql aberto com o usuário 'dsw' logado e usando o banco ConsultasMedicasDB para facilitar a visualização de dados:
+
+```
+mysql -u dsw -p ConsultasMedicasDB
+```
+
+use a senha 'dsw123'.
+
+## Requisitos
+
+- R1: (X) Implementado ( ) Parcialmente implementado ( ) Não implementado
+Divisão na implementação da funcionalidade: Gabriel (100%), Jhonattan (0%) e Jean (0%)
+- R2: (X) Implementado ( ) Parcialmente implementado ( ) Não implementado
+Divisão na implementação da funcionalidade: Gabriel (100%), Jhonattan (0%) e Jean (0%)
+- R3: (X) Implementado ( ) Parcialmente implementado ( ) Não implementado
+Divisão na implementação da funcionalidade: Gabriel (100%), Jhonattan (0%) e Jean (0%)
+- R4: (X) Implementado ( ) Parcialmente implementado ( ) Não implementado
+Divisão na implementação da funcionalidade: Gabriel (100%), Jhonattan (0%) e Jean (0%)
+- R5: (X) Implementado ( ) Parcialmente implementado ( ) Não implementado
+Divisão na implementação da funcionalidade: Gabriel (100%), Jhonattan (0%) e Jean (0%)
+- R6: (X) Implementado ( ) Parcialmente implementado ( ) Não implementado
+Divisão na implementação da funcionalidade: Gabriel (100%), Jhonattan (0%) e Jean (0%)
+- R7: (X) Implementado ( ) Parcialmente implementado ( ) Não implementado
+Divisão na implementação da funcionalidade: Gabriel (100%), Jhonattan (0%) e Jean (0%)
+- R8: (X) Implementado ( ) Parcialmente implementado ( ) Não implementado
+Divisão na implementação da funcionalidade: Gabriel (100%), Jhonattan (0%) e Jean (0%)
+- R9: (X) Implementado ( ) Parcialmente implementado ( ) Não implementado
+Divisão na implementação da funcionalidade: Gabriel (100%), Jhonattan (0%) e Jean (0%)
